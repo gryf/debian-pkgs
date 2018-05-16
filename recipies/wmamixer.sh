@@ -2,10 +2,12 @@
 
 rm -fr _wmamixer wmamixer wmamixer-0.1 wmamixer-0.1.deb
 
-dpkg -l |grep -q libasound2-dev
-if [ $? != 0 ]; then
-    apt-get -y install libasound2-dev
-fi
+for i in libxpm-dev libasound2-dev; do
+    dpkg -l |grep -q $i
+    if [ $? != 0 ]; then
+        apt-get -y install $i
+    fi
+done
 
 JOBS=-j$(($(nproc) + 1))
 
